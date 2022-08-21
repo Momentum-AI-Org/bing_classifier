@@ -9,7 +9,9 @@ from utils.constants import IMG_FORMAT, IMG_SIZE
 
 def model_ready_img(img: PIL.Image.Image) -> PIL.Image.Image:
     """Return a model ready PIL image."""
-    return img.convert("RGB").resize([IMG_SIZE, IMG_SIZE], resample=Image.BICUBIC)
+    return img.convert("RGB").resize(
+        [IMG_SIZE, IMG_SIZE], resample=Image.BICUBIC
+    )
 
 
 def img_to_numpy(img: PIL.Image.Image) -> PIL.Image.Image:
@@ -20,9 +22,13 @@ def img_to_numpy(img: PIL.Image.Image) -> PIL.Image.Image:
 def preprocess(
     x: Union[List[PIL.Image.Image], PIL.Image.Image],
     img_format: IMG_FORMAT = IMG_FORMAT.NUMPY,
-    to_model_ready: Callable[[PIL.Image.Image], PIL.Image.Image] = model_ready_img,
+    to_model_ready: Callable[
+        [PIL.Image.Image], PIL.Image.Image
+    ] = model_ready_img,
     img_to_numpy: Callable[[PIL.Image.Image], np.ndarray] = img_to_numpy,
-) -> Union[np.ndarray, PIL.Image.Image, List[np.ndarray], List[PIL.Image.Image]]:
+) -> Union[
+    np.ndarray, PIL.Image.Image, List[np.ndarray], List[PIL.Image.Image]
+]:
 
     if isinstance(x, list):
         out = []

@@ -23,7 +23,10 @@ class SimpleCNN(nn.Module):
         modules.extend(
             [
                 nn.Conv2d(
-                    3, num_filters, kernel_size=conv_kernel_size, padding=padding
+                    3,
+                    num_filters,
+                    kernel_size=conv_kernel_size,
+                    padding=padding,
                 ),
             ]
         )
