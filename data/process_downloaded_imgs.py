@@ -4,7 +4,12 @@ import numpy as np
 from PIL import Image
 from tqdm import tqdm
 
-from utils.constants import PROC_DATA_DIR, RAW_DATA_DIR, TEST_SUFFIX, TRAIN_SUFFIX
+from utils.constants import (
+    PROC_DATA_DIR,
+    RAW_DATA_DIR,
+    TEST_SUFFIX,
+    TRAIN_SUFFIX,
+)
 
 
 def process_raw_imgs(
