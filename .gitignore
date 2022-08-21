@@ -129,3 +129,5 @@ dmypy.json
 .pyre/
 
 snippets.txt
+data/raw_data/*
+data/proc_data/*
