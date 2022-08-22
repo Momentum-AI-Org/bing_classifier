@@ -50,7 +50,6 @@ class SimpleCNN(nn.Module):
             [
                 nn.Flatten(),
                 nn.Linear(int(num_filters * img_size**2), num_classes),
-                nn.LogSoftmax(),
             ]
         )
 

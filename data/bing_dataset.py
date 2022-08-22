@@ -19,8 +19,7 @@ class BingDataset(Dataset):
         super().__init__()
 
         self.img_paths = []
-        self.labels = []
-        self.one_hot = []
+        self.class_name_labels = []
 
         self.num_classes = len(queries)
         self.class_names = queries
@@ -31,12 +30,6 @@ class BingDataset(Dataset):
 
         for class_name in queries:
             self.load_image_names(class_name, n_per_class)
-
-    def get_one_hot(self, class_name: str) -> np.ndarray:
-        """Get one hot label of item given its class name"""
-        one_hot_label = np.zeros((self.num_classes,))
-        one_hot_label[self.class_name_to_index[class_name]] = 1.0
-        return one_hot_label
 
     def load_image_names(self, class_name: str, n: Optional[int]):
         """Load n images from class name folder into dataset."""
@@ -60,16 +53,15 @@ class BingDataset(Dataset):
         # collect path, label, and one hot data
         for img_name in img_names[:num_imgs]:
             self.img_paths.append(os.path.join(img_dir, img_name))
-            self.labels.append(class_name)
-            self.one_hot.append(self.get_one_hot(class_name))
+            self.class_name_labels.append(class_name)
 
     def __getitem__(self, index) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
         """Return dataset item at index: img, label, one_hot"""
         img = Image.open(self.img_paths[index])
         img_numpy = preprocess(img)
-        label_numpy = np.array([self.labels[index]])
-        one_hot_numpy = self.one_hot[index]
-        return img_numpy, label_numpy, one_hot_numpy
+        class_label = self.class_name_labels[index]
+        label = self.class_name_to_index[class_label]
+        return img_numpy, class_label, label
 
     def __len__(self) -> int:
         return len(self.img_paths)
